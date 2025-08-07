@@ -198,6 +198,12 @@ button {
 
 #new-book-modal form>div:nth-of-type(-n + 3) input {
     width: 100%;
+    outline: none;
+
+    :focus {
+        outline: none;
+        box-shadow: var(--book-color) 1.95px 1.95px 2.6px;
+    }
 }
 
 #new-book-modal form>div:last-of-type {
@@ -228,6 +234,16 @@ button {
     gap: 15px;
 }
 
+.book-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.book-container > div:last-of-type {
+    align-self: flex-end;
+}
+
 .book {
     position: relative;
     min-height: 300px;
@@ -245,5 +261,9 @@ button {
 .book>p {
     font-size: 1.5rem;
     color: var(--page-bg-color);
-    border-bottom: 1px solid black;
+}
+
+.delete-btn-book {
+    background-color: #d61e1e;
+    margin-right: 8px;
 }

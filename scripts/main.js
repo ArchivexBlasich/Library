@@ -1,11 +1,11 @@
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
+function Book(title, author, pages, read, id) {
     if (!new.target) {
         throw Error("You must use the 'new' operator to call the constructor");
     }
 
-    this.id = crypto.randomUUID();
+    this.id = id;
     this.title = title;
     this.author = author;
     this.pages = pages;
@@ -15,8 +15,12 @@ function Book(title, author, pages, read) {
     };
 }
 
+Book.prototype.toggleReadStatus = function() {
+    this.read = !this.read;
+};
+
 function addBookToLibrary(book) {
-    myLibrary.push(new Book(book.title, book.author, book.pages, book.read));
+    myLibrary.push(new Book(book.title, book.author, book.pages, book.read, book.id));
 }
 
 function showBooksInLibrary(library) {
@@ -37,13 +41,13 @@ function getBookFromInputs(inputs) {
 
     [bookTitle, bookAuthor, bookPages, bookRead] = book;
 
-    book = new Book(bookTitle, bookAuthor, bookPages, bookRead);
+    book = new Book(bookTitle, bookAuthor, bookPages, bookRead, crypto.randomUUID());
     return book;
 }
 
 function renderNewBook(book) {
     let bookHTML = `
-    <article class="book-container" data-bookId="${book.id}">
+    <article class="book-container" data-bookid="${book.id}">
             <div class="book">
                 <div class="book-shape-divider-top">
                     <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
@@ -63,7 +67,10 @@ function renderNewBook(book) {
                     </svg>
                 </div>
             </div>
-            <button class="delete-btn-book">Delete</button>
+            <div>
+                <button class="read-btn-book">Read</button>
+                <button class="delete-btn-book">Delete</button>
+            </div>
         </article>
     `;
     String.c
@@ -75,13 +82,26 @@ function renderNewBook(book) {
 }
 
 function deleteBook(e) {
-    if (e.target.tagName !== "BUTTON") return;
-    let bookContainer = e.target.parentNode;
-    let id = bookContainer.dataset.bookId;
+    if (e.target.tagName !== "BUTTON" || e.target.classList.value !== 'delete-btn-book') return;
+    let bookContainer = e.target.parentNode.parentNode;
+    let id = bookContainer.dataset.bookid;
     const indexBook = myLibrary.findIndex((book) => book.id === id);
-    myLibrary.splice(indexBook,1);
+
+    if (indexBook !== -1) myLibrary.splice(indexBook,1);
 
     bookContainer.remove();
+}
+
+function toggleRead(e) {
+    if (e.target.tagName !== "BUTTON" || e.target.classList.value !== 'read-btn-book') return;
+    let bookContainer = e.target.parentNode.parentNode;
+    let id = bookContainer.dataset.bookid;
+    const indexBook = myLibrary.findIndex((book) => book.id === id);
+    if (indexBook !== -1) {
+        myLibrary[indexBook].toggleReadStatus();
+        let para = document.querySelector(`article[data-bookid="${id}"]  > div:nth-of-type(1) > p`);
+        para.textContent = myLibrary[indexBook].info();
+    }
 }
 
 function capitalizeWords(sentence) {
@@ -160,3 +180,4 @@ modal.addEventListener("click", (e) => {
 });
 
 mainContainer.addEventListener("click", deleteBook);
+mainContainer.addEventListener("click", toggleRead);
