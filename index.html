@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,71 @@
     <link rel="stylesheet" href="./styles/style.css">
     <script defer src="./scripts/main.js"></script>
 </head>
+
 <body>
-    <div class="page-container">
-        <header class="header"></header>
-        <main class="main"></main>
-    </div>
+    <header class="header">
+        <button class="new-book-btn">Add a Book</button>
+        <dialog id="new-book-modal">
+            <h2>Add a Book to the Library</h2>
+            <form>
+                <div>
+                    <label for="book-title">Title</label>
+                    <input type="text" id="book-title" name="bookTitle" maxlength="100" required>
+                </div>
+                <div>
+                    <label for="book-author">Author</label>
+                    <input type="text" id="book-author" name="bookAuthor" maxlength="100" required>
+                </div>
+                <div>
+                    <label for="book-pages">Pages</label>
+                    <input type="number" id="book-pages" name="bookPages" min="0" max="15000" required>
+                </div>
+                <div>
+                    <label for="book-read">Read</label>
+                    <input type="checkbox" id="book-read" name="bookRead">
+                </div>
+                <div><button type="submit" class="add-book-modal-btn">Add</button></div>
+                <div><button type="submit" class="cancel-modal-btn">Cancel</button></div>
+            </form>
+        </dialog>
+    </header>
+
+    <main class="main">
+        <div class="book">
+            <div class="book-shape-divider-top">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                    preserveAspectRatio="none">
+                    <path d="M602.45,3.86h0S572.9,116.24,281.94,120H923C632,116.24,602.45,3.86,602.45,3.86Z"
+                        class="shape-fill"></path>
+                </svg>
+            </div>
+
+            <div class="book-shape-divider-bottom ">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                    preserveAspectRatio="none">
+                    <path d="M602.45,3.86h0S572.9,116.24,281.94,120H923C632,116.24,602.45,3.86,602.45,3.86Z"
+                        class="shape-fill"></path>
+                </svg>
+            </div>
+        </div>
+        <div class="book">
+            <div class="book-shape-divider-top">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                    preserveAspectRatio="none">
+                    <path d="M602.45,3.86h0S572.9,116.24,281.94,120H923C632,116.24,602.45,3.86,602.45,3.86Z"
+                        class="shape-fill"></path>
+                </svg>
+            </div>
+
+            <div class="book-shape-divider-bottom ">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                    preserveAspectRatio="none">
+                    <path d="M602.45,3.86h0S572.9,116.24,281.94,120H923C632,116.24,602.45,3.86,602.45,3.86Z"
+                        class="shape-fill"></path>
+                </svg>
+            </div>
+        </div>
+    </main>
 </body>
+
 </html>

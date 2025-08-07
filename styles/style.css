@@ -3,61 +3,134 @@
   https://www.joshwcomeau.com/css/custom-css-reset/
 */
 
-*, *::before, *::after {
-  box-sizing: border-box;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
 * {
-  margin: 0;
+    margin: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html {
-    interpolate-size: allow-keywords;
-  }
+    html {
+        interpolate-size: allow-keywords;
+    }
 }
 
 body {
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
 }
 
-img, picture, video, canvas, svg {
-  display: block;
-  max-width: 100%;
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
 }
 
-input, button, textarea, select {
-  font: inherit;
+input,
+button,
+textarea,
+select {
+    font: inherit;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
 }
 
 p {
-  text-wrap: pretty;
-}
-h1, h2, h3, h4, h5, h6 {
-  text-wrap: balance;
+    text-wrap: pretty;
 }
 
-#root, #__next {
-  isolation: isolate;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
 }
+
+#root,
+#__next {
+    isolation: isolate;
+}
+
+/*--------- Custom properties --------------*/
 
 :root {
-    --header-color: #7de2d1; /* #339989 */
-    --main-color: #131515;
-    --text-color: #fffafb;
+    --header-color: #14213d;
+    --page-bg-color: #000000;
+    --text-color: #ffffff;
+    --book-color: #fca311;
 }
 
-.page-container {
-    min-height: 100vh;
+/*--------- SVGs Styles ----------------- */
+.book-shape-divider-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
 
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: max-content 1fr;
+.book-shape-divider-top svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 30px;
+}
+
+.book-shape-divider-top .shape-fill {
+    fill: var(--book-color);
+}
+
+
+.book-shape-divider-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.book-shape-divider-bottom svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 30px;
+}
+
+.book-shape-divider-bottom .shape-fill {
+    fill: var(--book-color);
+}
+
+
+/*---------- Dialog style ---------------*/
+dialog {
+    margin: auto;
+}
+
+
+/*--------------------- Page Style -------------------------*/
+html,
+body {
+    background-color: var(--page-bg-color);
 }
 
 .header {
@@ -67,5 +140,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .main {
-    background-color: var(--main-color);
+    padding: 2rem;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+}
+
+.book {
+    position: relative;
+    min-height: 300px;
+    border: 15px solid var(--book-color);
+    border-radius: 5px;
+    background-color: #e5e5e5;
 }
