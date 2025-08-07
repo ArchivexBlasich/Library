@@ -34,7 +34,7 @@ function getBookFromInputs(inputs) {
         }
         book.push(input.value);
     }
-    
+
     [bookTitle, bookAuthor, bookPages, bookRead] = book;
 
     return {
@@ -45,6 +45,52 @@ function getBookFromInputs(inputs) {
     };
 }
 
+function renderNewBook(book) {
+    let bookHTML = `
+    <div class="book-container">
+            <div class="book">
+                <div class="book-shape-divider-top">
+                    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                        preserveAspectRatio="none">
+                        <path d="M602.45,3.86h0S572.9,116.24,281.94,120H923C632,116.24,602.45,3.86,602.45,3.86Z"
+                            class="shape-fill"></path>
+                    </svg>
+                </div>
+
+                <p class="title">Title: ${capitalizeWords(book.title)}</p>
+                <p class="author">Author: ${capitalizeWords(book.author)}</p>
+                <p class="pages">Pages: ${book.pages}</p>
+                <p class="read">Read: ${(book.read) ? 'Yes' : "No"}</p>
+
+                <div class="book-shape-divider-bottom ">
+                    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
+                        preserveAspectRatio="none">
+                        <path d="M602.45,3.86h0S572.9,116.24,281.94,120H923C632,116.24,602.45,3.86,602.45,3.86Z"
+                            class="shape-fill"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    `;
+    String.c
+
+    let pageMainSection = document.querySelector(".main");
+    pageMainSection.insertAdjacentHTML("beforeend", bookHTML);
+
+    return;
+}
+
+function capitalizeWords(sentence) {
+  if (sentence.length === 0) {
+    return ""; // Handle empty strings
+  }
+  return sentence.split(' ').map(word => {
+    if (word.length === 0) {
+      return ""; // Handle empty words
+    }
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(' ');
+}
 
 /*------------- Page general functionality and DOM manipulation ----------------- */
 const newBookBtn = document.querySelector(".new-book-btn");
@@ -83,6 +129,7 @@ addBookModalBtn.addEventListener("click", (event) => {
         event.preventDefault(); // We don't want to submit this fake form
         let book = getBookFromInputs(formInputs);
         addBookToLibrary(book);
+        renderNewBook(book);
         modal.close("Book was added"); // Have to send the select box value here.
     }
 });
