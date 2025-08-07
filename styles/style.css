@@ -75,6 +75,7 @@ h6 {
     --page-bg-color: #000000;
     --text-color: #ffffff;
     --book-color: #fca311;
+    --title-color: #e5e5e5;
 }
 
 /*--------- SVGs Styles ----------------- */
@@ -140,12 +141,83 @@ button {
     border: none;
     border-radius: 6px;
     padding: 0.5rem 1rem;
-} 
+    cursor: pointer;
+}
 
 .header {
     background-color: var(--header-color);
     min-height: 15vh;
     width: 100%;
+    padding: 1.5rem;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+
+    h1 {
+        font-style: italic;
+        color: var(--title-color);
+    }
+
+    .new-book-btn {
+        background-color: var(--book-color);
+        font-size: 1.1rem;
+        font-weight: 550;
+        color: var(--page-bg-color);
+        border-radius: 10px;
+    }
+
+    .new-book-btn:hover {
+        outline: 2px solid var(--title-color);
+    }
+
+    .new-book-btn:active {
+        outline: 3px solid var(--title-color);
+    }
+}
+
+#new-book-modal {
+    min-height: 40vh;
+    min-width: 40vw;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    background-color: var(--header-color);
+    border: 2px solid var(--book-color);
+    padding: 2rem;
+}
+
+#new-book-modal::backdrop {
+    backdrop-filter: blur(10px);
+}
+
+#new-book-modal>form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#new-book-modal form>div:nth-of-type(-n + 3) input {
+    width: 100%;
+}
+
+#new-book-modal form>div:last-of-type {
+    font-size: 1.4em;
+    align-self: flex-end;
+
+    display: flex;
+    gap: 15px;
+}
+
+#new-book-modal form>div:last-of-type button {
+    background-color: var(--book-color);
+    font-size: 1.1rem;
+    font-weight: 550;
+    color: var(--page-bg-color);
+    border-radius: 10px;
+}
+
+#new-book-modal form>div:last-of-type button:hover {
+        outline: 3px solid var(--title-color);
 }
 
 .main {
@@ -153,12 +225,13 @@ button {
 
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 10px;
+    gap: 15px;
 }
 
 .book {
     position: relative;
     min-height: 300px;
+    text-align: center;
     border: 15px solid var(--book-color);
     border-radius: 5px;
     background-color: #e5e5e5;
@@ -169,7 +242,7 @@ button {
     align-items: center;
 }
 
-.book > p{
+.book>p {
     font-size: 1.5rem;
     color: var(--page-bg-color);
     border-bottom: 1px solid black;

@@ -11,28 +11,31 @@
 
 <body>
     <header class="header">
+        <h1>Fabricio Blasich Library</h1>
         <button class="new-book-btn">Add a Book</button>
         <dialog id="new-book-modal">
             <h2>Add a Book to the Library</h2>
             <form>
                 <div>
-                    <label for="book-title">Title</label>
+                    <label for="book-title">Title:  </label>
                     <input type="text" id="book-title" name="bookTitle" maxlength="100" required>
                 </div>
                 <div>
-                    <label for="book-author">Author</label>
+                    <label for="book-author">Author: </label>
                     <input type="text" id="book-author" name="bookAuthor" maxlength="100" required>
                 </div>
                 <div>
-                    <label for="book-pages">Pages</label>
+                    <label for="book-pages">Pages:  </label>
                     <input type="number" id="book-pages" name="bookPages" min="0" max="15000" required>
                 </div>
                 <div>
-                    <label for="book-read">Read</label>
+                    <label for="book-read">Read:   </label>
                     <input type="checkbox" id="book-read" name="bookRead">
                 </div>
-                <div><button type="submit" class="add-book-modal-btn">Add</button></div>
-                <div><button type="submit" class="cancel-modal-btn">Cancel</button></div>
+                <div>
+                    <button type="submit" class="add-book-modal-btn">Add</button>
+                    <button type="submit" class="cancel-modal-btn">Cancel</button>
+                </div>
             </form>
         </dialog>
     </header>
