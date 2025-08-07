@@ -163,6 +163,10 @@ button {
     border-radius: 5px;
     background-color: #e5e5e5;
     padding: 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .book > p{

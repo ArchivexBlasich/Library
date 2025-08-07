@@ -11,7 +11,7 @@ function Book(title, author, pages, read) {
     this.pages = pages;
     this.read = read;
     this.info = function () {
-        return `${this.title} by ${this.author}, ${this.pages}, ${(this.read) ? "read" : "not read yet"}`;
+        return `${capitalizeWords(this.title)} by ${capitalizeWords(this.author)}, ${this.pages} pages, ${(this.read) ? "read" : "not read yet"}`;
     };
 }
 
@@ -37,17 +37,13 @@ function getBookFromInputs(inputs) {
 
     [bookTitle, bookAuthor, bookPages, bookRead] = book;
 
-    return {
-        title: bookTitle,
-        author: bookAuthor,
-        pages: bookPages,
-        read: bookRead,
-    };
+    book = new Book(bookTitle, bookAuthor, bookPages, bookRead);
+    return book;
 }
 
 function renderNewBook(book) {
     let bookHTML = `
-    <div class="book-container">
+    <article class="book-container" data-bookId="${book.id}">
             <div class="book">
                 <div class="book-shape-divider-top">
                     <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
@@ -57,10 +53,7 @@ function renderNewBook(book) {
                     </svg>
                 </div>
 
-                <p class="title">Title: ${capitalizeWords(book.title)}</p>
-                <p class="author">Author: ${capitalizeWords(book.author)}</p>
-                <p class="pages">Pages: ${book.pages}</p>
-                <p class="read">Read: ${(book.read) ? 'Yes' : "No"}</p>
+                <p>${book.info()}</p>
 
                 <div class="book-shape-divider-bottom ">
                     <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
@@ -70,7 +63,8 @@ function renderNewBook(book) {
                     </svg>
                 </div>
             </div>
-        </div>
+            <button class="delete-btn-book">Delete</button>
+        </article>
     `;
     String.c
 
@@ -78,6 +72,16 @@ function renderNewBook(book) {
     pageMainSection.insertAdjacentHTML("beforeend", bookHTML);
 
     return;
+}
+
+function deleteBook(e) {
+    if (e.target.tagName !== "BUTTON") return;
+    let bookContainer = e.target.parentNode;
+    let id = bookContainer.dataset.bookId;
+    const indexBook = myLibrary.findIndex((book) => book.id === id);
+    myLibrary.splice(indexBook,1);
+
+    bookContainer.remove();
 }
 
 function capitalizeWords(sentence) {
@@ -104,6 +108,7 @@ const bookReadInput = document.querySelector("dialog input[name='bookRead']");
 
 const addBookModalBtn = document.querySelector(".add-book-modal-btn");
 const cancelModalBtn = document.querySelector(".cancel-modal-btn");
+const mainContainer = document.querySelector(".main");
 
 newBookBtn.addEventListener("click", () => modal.showModal());
 cancelModalBtn.addEventListener("click", (e) => {
@@ -130,7 +135,7 @@ addBookModalBtn.addEventListener("click", (event) => {
         let book = getBookFromInputs(formInputs);
         addBookToLibrary(book);
         renderNewBook(book);
-        modal.close("Book was added"); // Have to send the select box value here.
+        modal.close(); // Have to send the select box value here.
     }
 });
 
@@ -138,8 +143,7 @@ modal.addEventListener("close", (e) => {
     if (!modal.returnValue) {
         return;
     }
-    console.log(modal.returnValue)
-    console.table(myLibrary);
+
 });
 
 // This Event Listener close the modal when this is press out of its area
@@ -154,3 +158,5 @@ modal.addEventListener("click", (e) => {
         modal.close();
     }
 });
+
+mainContainer.addEventListener("click", deleteBook);
