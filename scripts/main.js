@@ -1,23 +1,22 @@
 const myLibrary = [];
 
-function Book(title, author, pages, read, id) {
-    if (!new.target) {
-        throw Error("You must use the 'new' operator to call the constructor");
+class Book {
+    constructor(title, author, pages, read, id) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
     }
 
-    this.id = id;
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.info = function () {
+    info() {
         return `${capitalizeWords(this.title)} by ${capitalizeWords(this.author)}, ${this.pages} pages, ${(this.read) ? "read" : "not read yet"}`;
-    };
-}
+    }
 
-Book.prototype.toggleReadStatus = function() {
-    this.read = !this.read;
-};
+    toggleReadStatus() {
+        this.read = !this.read;
+    }
+}
 
 function addBookToLibrary(book) {
     myLibrary.push(new Book(book.title, book.author, book.pages, book.read, book.id));
@@ -73,10 +72,13 @@ function renderNewBook(book) {
             </div>
         </article>
     `;
-    String.c
 
     let pageMainSection = document.querySelector(".main");
     pageMainSection.insertAdjacentHTML("beforeend", bookHTML);
+
+    bookTitleInput.value = "";
+    bookAuthorInput.value = "";
+    bookPagesInput.value = 0;
 
     return;
 }
@@ -87,7 +89,7 @@ function deleteBook(e) {
     let id = bookContainer.dataset.bookid;
     const indexBook = myLibrary.findIndex((book) => book.id === id);
 
-    if (indexBook !== -1) myLibrary.splice(indexBook,1);
+    if (indexBook !== -1) myLibrary.splice(indexBook, 1);
 
     bookContainer.remove();
 }
@@ -105,15 +107,15 @@ function toggleRead(e) {
 }
 
 function capitalizeWords(sentence) {
-  if (sentence.length === 0) {
-    return ""; // Handle empty strings
-  }
-  return sentence.split(' ').map(word => {
-    if (word.length === 0) {
-      return ""; // Handle empty words
+    if (sentence.length === 0) {
+        return ""; // Handle empty strings
     }
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }).join(' ');
+    return sentence.split(' ').map(word => {
+        if (word.length === 0) {
+            return ""; // Handle empty words
+        }
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
 }
 
 /*------------- Page general functionality and DOM manipulation ----------------- */
@@ -123,7 +125,7 @@ const modal = document.querySelector("#new-book-modal");
 
 const bookTitleInput = document.querySelector("dialog input[name='bookTitle']");
 const bookAuthorInput = document.querySelector("dialog input[name='bookAuthor']");
-const bookPagesInput = document.querySelector("dialog input[name='book-pages']");
+const bookPagesInput = document.querySelector("dialog input[name='bookPages']");
 const bookReadInput = document.querySelector("dialog input[name='bookRead']");
 
 const addBookModalBtn = document.querySelector(".add-book-modal-btn");
