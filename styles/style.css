@@ -177,8 +177,8 @@ button {
 }
 
 #new-book-modal {
-    max-height: 40vh;
-    max-width: 40vw;
+    min-height: 50vh;
+    min-width: 50vw;
     color: var(--text-color);
     font-size: 1.2rem;
     background-color: var(--header-color);
@@ -266,4 +266,8 @@ button {
 .delete-btn-book {
     background-color: #d61e1e;
     margin-right: 8px;
+}
+
+.invalid {
+    color: #d61e1e;
 }
